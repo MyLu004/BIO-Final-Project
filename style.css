@@ -9,23 +9,23 @@ body {
   .container {
     max-width: 600px;
     margin: auto;
-    position: relative; /* Enables absolute positioning within */
-    height: 600px;      /* Give enough space for random placement */
+    position: relative; /* For absolute positioning of the target and distractors */
+    height: 600px;
     border: 1px solid #ddd;
     background-color: #fff;
     padding: 20px;
-    box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   }
   
   #gameArea {
     position: absolute;
-    width: 100px;  /* define box width */
-    height: 100px; /* define box height */
+    width: 100px;  /* Target box size */
+    height: 100px; /* Target box size */
     background-color: lightgray;
-    border-radius: 10px; /* round the corners */
+    border-radius: 10px;
     cursor: pointer;
-    display: none;     /* will be shown dynamically */
-    box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+    display: none;     /* Will show when the target is triggered */
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
     transition: background-color 0.3s;
   }
   
@@ -33,5 +33,16 @@ body {
     padding: 10px 20px;
     font-size: 16px;
     margin-top: 10px;
+  }
+  
+  /* Distractor shapes styling */
+  .distractor {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: rgba(255, 0, 0, 0.6);
+    pointer-events: none; /* They won’t interfere with clicking the target */
+    transition: left 0.8s, top 0.8s;
   }
   
