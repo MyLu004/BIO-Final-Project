@@ -2,25 +2,36 @@ body {
     font-family: Arial, sans-serif;
     text-align: center;
     background-color: #f3f3f3;
-    margin-top: 50px;
+    margin: 0;
+    padding: 20px;
   }
   
   .container {
     max-width: 600px;
     margin: auto;
+    position: relative; /* Enables absolute positioning within */
+    height: 600px;      /* Give enough space for random placement */
+    border: 1px solid #ddd;
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
   }
   
   #gameArea {
-    width: 300px;
-    height: 300px;
+    position: absolute;
+    width: 100px;  /* define box width */
+    height: 100px; /* define box height */
     background-color: lightgray;
-    margin: 20px auto;
-    display: none;
+    border-radius: 10px; /* round the corners */
     cursor: pointer;
+    display: none;     /* will be shown dynamically */
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+    transition: background-color 0.3s;
   }
   
   button {
     padding: 10px 20px;
     font-size: 16px;
+    margin-top: 10px;
   }
   
