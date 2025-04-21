@@ -8,17 +8,10 @@ body {
   .container {
     max-width: 800px;
     margin: auto;
-<<<<<<< Updated upstream
-    position: relative; /* Enables absolute positioning within */
-    height: 600px;      /* Give enough space for random placement */
-=======
->>>>>>> Stashed changes
     border: 1px solid #ddd;
     background-color: #fff;
     padding: 20px;
     box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
-<<<<<<< Updated upstream
-=======
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -37,21 +30,10 @@ body {
     border: 2px solid #ccc;
     background-color: #f9f9f9;
     overflow: hidden;
->>>>>>> Stashed changes
   }
   
   #gameArea {
     position: absolute;
-<<<<<<< Updated upstream
-    width: 100px;  /* define box width */
-    height: 100px; /* define box height */
-    background-color: lightgray;
-    border-radius: 10px; /* round the corners */
-    cursor: pointer;
-    display: none;     /* will be shown dynamically */
-    box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
-    transition: background-color 0.3s;
-=======
     width: 100px;
     height: 100px;
     border-radius: 10px;
@@ -70,7 +52,6 @@ body {
     background-color: rgba(255, 0, 0, 0.6);
     pointer-events: none; /* They won’t capture clicks */
     transition: left 0.3s, top 0.3s;
->>>>>>> Stashed changes
   }
   
   button {
