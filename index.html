@@ -2,16 +2,23 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Reaction Time Tester</title>
+  <title>Reaction Time Tester: Multi-Level Distraction</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="container">
     <h1>Reaction Time Tester</h1>
     <input type="text" id="playerName" placeholder="Enter your name" />
+    <!-- Game Level Explanation -->
+    <p>
+      Your session consists of 9 rounds divided into three levels of distraction:<br>
+      <strong>Level 0:</strong> Rounds 1-3 (No Distraction)<br>
+      <strong>Level 1:</strong> Rounds 4-6 (Low Distraction)<br>
+      <strong>Level 2:</strong> Rounds 7-9 (High Distraction)
+    </p>
     <button id="startBtn">Start</button>
     <div id="gameArea"></div>
-    <p id="result"></p>
+    <pre id="result"></pre>
   </div>
 
   <script src="script.js"></script>
