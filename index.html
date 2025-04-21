@@ -7,11 +7,33 @@
 </head>
 <body>
   <div class="container">
+<<<<<<< Updated upstream
     <h1>Reaction Time Tester</h1>
     <input type="text" id="playerName" placeholder="Enter your name" />
     <button id="startBtn">Start</button>
     <div id="gameArea"></div>
     <p id="result"></p>
+=======
+    <!-- Text and controls section -->
+    <div id="textArea">
+      <h1>Reaction Time Tester</h1>
+      <input type="text" id="playerName" placeholder="Enter your name" />
+      <p id="instructions">
+        Your session consists of 12 rounds divided into four levels of distraction:<br>
+        <strong>Level 0:</strong> Rounds 1-3 (No distraction)<br>
+        <strong>Level 1:</strong> Rounds 4-6 (Low distraction)<br>
+        <strong>Level 2:</strong> Rounds 7-9 (Moderate distraction with target movement)<br>
+        <strong>Level 3:</strong> Rounds 10-12 (High distraction with rapid target movement)
+      </p>
+      <button id="startBtn">Start</button>
+      <pre id="result"></pre>
+    </div>
+
+    <!-- Game area -->
+    <div id="gameContainer">
+      <div id="gameArea"></div>
+    </div>
+>>>>>>> Stashed changes
   </div>
 
   <script src="script.js"></script>

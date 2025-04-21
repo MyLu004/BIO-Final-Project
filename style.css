@@ -1,24 +1,48 @@
 body {
     font-family: Arial, sans-serif;
-    text-align: center;
     background-color: #f3f3f3;
     margin: 0;
     padding: 20px;
   }
   
   .container {
-    max-width: 600px;
+    max-width: 800px;
     margin: auto;
+<<<<<<< Updated upstream
     position: relative; /* Enables absolute positioning within */
     height: 600px;      /* Give enough space for random placement */
+=======
+>>>>>>> Stashed changes
     border: 1px solid #ddd;
     background-color: #fff;
     padding: 20px;
     box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+<<<<<<< Updated upstream
+=======
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  #textArea {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  #gameContainer {
+    width: 600px;
+    height: 600px;
+    position: relative;
+    border: 2px solid #ccc;
+    background-color: #f9f9f9;
+    overflow: hidden;
+>>>>>>> Stashed changes
   }
   
   #gameArea {
     position: absolute;
+<<<<<<< Updated upstream
     width: 100px;  /* define box width */
     height: 100px; /* define box height */
     background-color: lightgray;
@@ -27,6 +51,26 @@ body {
     display: none;     /* will be shown dynamically */
     box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
     transition: background-color 0.3s;
+=======
+    width: 100px;
+    height: 100px;
+    border-radius: 10px;
+    cursor: pointer;
+    display: none;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+    transition: background-color 0.3s, left 0.3s, top 0.3s;
+  }
+  
+  /* Distractor shapes */
+  .distractor {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: rgba(255, 0, 0, 0.6);
+    pointer-events: none; /* They won’t capture clicks */
+    transition: left 0.3s, top 0.3s;
+>>>>>>> Stashed changes
   }
   
   button {
