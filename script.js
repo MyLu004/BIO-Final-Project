@@ -1,3 +1,4 @@
+// Updated script.js with colorful distractors and a practice round
 const startBtn = document.getElementById("startBtn");
 const gameArea = document.getElementById("gameArea");
 const result = document.getElementById("result");
@@ -9,39 +10,44 @@ let round = 0;
 const roundsPerLevel = 3;
 const totalLevels = 4;
 const totalRounds = roundsPerLevel * totalLevels; // 12 rounds total
+let practice = false;  // flag for practice round
 
 // To track reaction times for each level
 let reactionTimesByLevel = { 0: [], 1: [], 2: [], 3: [] };
 
 // Colors for the target box
 const colors = ["#e74c3c", "#2ecc71", "#3498db", "#f1c40f", "#9b59b6"];
+// Colors for distractors (semi-transparent)
+const distractorColors = [
+  "rgba(231, 76, 60, 0.6)",
+  "rgba(46, 204, 113, 0.6)",
+  "rgba(52, 152, 219, 0.6)",
+  "rgba(241, 196, 15, 0.6)",
+  "rgba(155, 89, 182, 0.6)"
+];
 
-// Variables for distractors and target jittering
 let distractionInterval;
 let distractors = [];
 let targetJitterInterval = null;
 
 // --- Distractor Functions ---
-
 function startDistractors(num, intervalSpeed) {
-  // Create 'num' distractor elements
   for (let i = 0; i < num; i++) {
     const distractor = document.createElement("div");
     distractor.classList.add("distractor");
+    // assign a random color
+    distractor.style.backgroundColor = distractorColors[
+      Math.floor(Math.random() * distractorColors.length)
+    ];
     gameContainer.appendChild(distractor);
     distractors.push(distractor);
   }
-  // Move distractors to random positions at the given interval
   distractionInterval = setInterval(() => {
+    const rect = gameContainer.getBoundingClientRect();
     distractors.forEach(d => {
-      const containerRect = gameContainer.getBoundingClientRect();
-      const size = 30; // width/height of distractors (from CSS)
-      const maxLeft = containerRect.width - size;
-      const maxTop = containerRect.height - size;
-      const randomLeft = Math.floor(Math.random() * maxLeft);
-      const randomTop = Math.floor(Math.random() * maxTop);
-      d.style.left = randomLeft + "px";
-      d.style.top = randomTop + "px";
+      const size = 30;
+      d.style.left = Math.random() * (rect.width - size) + "px";
+      d.style.top  = Math.random() * (rect.height - size) + "px";
     });
   }, intervalSpeed);
 }
@@ -53,24 +59,18 @@ function stopDistractors() {
 }
 
 // --- Target Jitter Functions ---
-
 function startTargetJittering(jitterInterval) {
   targetJitterInterval = setInterval(() => {
-    // Get current position
-    let left = parseInt(gameArea.style.left) || 0;
-    let top = parseInt(gameArea.style.top) || 0;
-    // Small random offset
-    const offsetX = Math.floor(Math.random() * 21) - 10; // -10 to +10 pixels
-    const offsetY = Math.floor(Math.random() * 21) - 10;
-    let newLeft = left + offsetX;
-    let newTop = top + offsetY;
-    // Ensure the target stays inside the game area
-    const containerRect = gameContainer.getBoundingClientRect();
+    const rect = gameContainer.getBoundingClientRect();
     const boxSize = 100;
-    newLeft = Math.max(0, Math.min(newLeft, containerRect.width - boxSize));
-    newTop = Math.max(0, Math.min(newTop, containerRect.height - boxSize));
+    let left = parseInt(gameArea.style.left) || 0;
+    let top  = parseInt(gameArea.style.top)  || 0;
+    const offsetX = Math.random() * 20 - 10;
+    const offsetY = Math.random() * 20 - 10;
+    let newLeft = Math.min(Math.max(0, left + offsetX), rect.width - boxSize);
+    let newTop  = Math.min(Math.max(0, top  + offsetY), rect.height - boxSize);
     gameArea.style.left = newLeft + "px";
-    gameArea.style.top = newTop + "px";
+    gameArea.style.top  = newTop + "px";
   }, jitterInterval);
 }
 
@@ -78,97 +78,87 @@ function stopTargetJittering() {
   clearInterval(targetJitterInterval);
 }
 
-// --- Round Control Function ---
-
+// --- Round Control ---
 function startRound() {
-  const playerName = playerNameInput.value.trim();
-  // Determine the current level based on the round number (0-indexed)
+  const player = playerNameInput.value.trim();
   const currentLevel = Math.floor(round / roundsPerLevel);
-  result.textContent = `Round ${round + 1} of ${totalRounds} (Level ${currentLevel})... Get ready, ${playerName}!`;
-  gameArea.style.display = "none";
 
-  // --- Configure distractions based on level ---
-  // Level 0: No distractors, target is still.
-  // Level 1: 5 distractors, moderate speed, target remains still.
-  // Level 2: 10 distractors, faster, plus target jitter every 500ms.
-  // Level 3: 15 distractors, very fast, plus target jitter every 300ms.
-  if (currentLevel === 1) {
-    startDistractors(5, 800);
-  } else if (currentLevel === 2) {
-    startDistractors(10, 400);
-    startTargetJittering(500);
-  } else if (currentLevel === 3) {
-    startDistractors(15, 200);
-    startTargetJittering(300);
+  if (practice) {
+    result.textContent = `Practice Round: Get ready, ${player}!`;
+  } else {
+    result.textContent = `Round ${round + 1} of ${totalRounds} (Level ${currentLevel})... Get ready, ${player}!`;
+    // only run distractors/jitter on real rounds
+    if (currentLevel === 1) {
+      startDistractors(5, 800);
+    } else if (currentLevel === 2) {
+      startDistractors(10, 400);
+      startTargetJittering(500);
+    } else if (currentLevel === 3) {
+      startDistractors(15, 200);
+      startTargetJittering(300);
+    }
   }
-  // For Level 0, we do nothing (no distractions)
 
-  // Random delay (2-5 seconds) before showing the target
-  const randomDelay = Math.floor(Math.random() * 3000) + 2000;
+  gameArea.style.display = "none";
+  const delay = Math.random() * 3000 + 2000;
   setTimeout(() => {
-    // Randomize target box position within the gameContainer
-    const containerRect = gameContainer.getBoundingClientRect();
-    const boxSize = 100;
-    const maxLeft = containerRect.width - boxSize;
-    const maxTop = containerRect.height - boxSize;
-    const randomLeft = Math.floor(Math.random() * maxLeft);
-    const randomTop = Math.floor(Math.random() * maxTop);
-    gameArea.style.left = randomLeft + "px";
-    gameArea.style.top = randomTop + "px";
-
-    // Random target color
-    const randomColor = colors[Math.floor(Math.random() * colors.length)];
-    gameArea.style.backgroundColor = randomColor;
-    
+    const rect = gameContainer.getBoundingClientRect();
+    const box = 100;
+    gameArea.style.left = Math.random() * (rect.width - box) + "px";
+    gameArea.style.top  = Math.random() * (rect.height - box) + "px";
+    gameArea.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
     gameArea.style.display = "block";
-    startTime = new Date().getTime();
-  }, randomDelay);
+    startTime = Date.now();
+  }, delay);
 }
 
-// --- Event Listeners ---
-
 startBtn.addEventListener("click", () => {
-  const playerName = playerNameInput.value.trim();
-  if (playerName === "") {
+  const player = playerNameInput.value.trim();
+  if (!player) {
     alert("Please enter your name before starting.");
     return;
   }
-  // Reset variables for a new session
+  practice = true;
   round = 0;
   reactionTimesByLevel = { 0: [], 1: [], 2: [], 3: [] };
   startBtn.disabled = true;
-  result.textContent = `Good luck, ${playerName}!`;
-  startRound();
+  result.textContent = `Get ready for a practice round, ${player}!`;
+  setTimeout(startRound, 500);
 });
 
 gameArea.addEventListener("click", () => {
-  // When the target is clicked, stop any distractions and jittering
+  // stop any distractions/jitter
   stopDistractors();
   stopTargetJittering();
+  if (!startTime) return;
 
-  if (!startTime) return; // Prevent accidental clicks
+  endTime = Date.now();
+  const rt = endTime - startTime;
 
-  endTime = new Date().getTime();
-  const reactionTime = endTime - startTime;
-  const currentLevel = Math.floor(round / roundsPerLevel);
-  reactionTimesByLevel[currentLevel].push(reactionTime);
-  result.textContent = `Round ${round + 1} reaction time: ${reactionTime} ms`;
+  if (practice) {
+    result.textContent = `Practice reaction: ${rt} ms. Now starting real rounds...`;
+    practice = false;
+    setTimeout(startRound, 1500);
+    return;
+  }
 
+  const level = Math.floor(round / roundsPerLevel);
+  reactionTimesByLevel[level].push(rt);
+  result.textContent = `Round ${round + 1} reaction: ${rt} ms`;
   gameArea.style.display = "none";
   startTime = null;
   round++;
 
   if (round < totalRounds) {
-    setTimeout(startRound, 1500); // Brief pause between rounds
+    setTimeout(startRound, 1500);
   } else {
-    // Calculate and show averages per level at the end
-    let output = `Results for ${playerNameInput.value.trim()}:\n`;
-    for (let level = 0; level < totalLevels; level++) {
-      const times = reactionTimesByLevel[level];
-      const average = times.reduce((a, b) => a + b, 0) / times.length;
-      output += `Level ${level} average: ${average.toFixed(2)} ms\n`;
+    let out = `Results for ${playerNameInput.value.trim()}:\n`;
+    for (let lvl = 0; lvl < totalLevels; lvl++) {
+      const times = reactionTimesByLevel[lvl];
+      const avg = times.reduce((a, b) => a + b, 0) / times.length;
+      out += `Level ${lvl} avg: ${avg.toFixed(2)} ms\n`;
     }
-    result.textContent = output;
+    result.textContent = out;
     startBtn.disabled = false;
   }
 });

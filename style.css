@@ -1,62 +1,60 @@
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f3f3f3;
-    margin: 0;
-    padding: 20px;
-  }
-  
-  .container {
-    max-width: 800px;
-    margin: auto;
-    border: 1px solid #ddd;
-    background-color: #fff;
-    padding: 20px;
-    box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  #textArea {
-    width: 100%;
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  #gameContainer {
-    width: 600px;
-    height: 600px;
-    position: relative;
-    border: 2px solid #ccc;
-    background-color: #f9f9f9;
-    overflow: hidden;
-  }
-  
-  #gameArea {
-    position: absolute;
-    width: 100px;
-    height: 100px;
-    border-radius: 10px;
-    cursor: pointer;
-    display: none;
-    box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
-    transition: background-color 0.3s, left 0.3s, top 0.3s;
-  }
-  
-  /* Distractor shapes */
-  .distractor {
-    position: absolute;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    background-color: rgba(255, 0, 0, 0.6);
-    pointer-events: none; /* They won’t capture clicks */
-    transition: left 0.3s, top 0.3s;
-  }
-  
-  button {
-    padding: 10px 20px;
-    font-size: 16px;
-    margin-top: 10px;
-  }
-  
+  font-family: Arial, sans-serif;
+  background-color: #f3f3f3;
+  margin: 0;
+  padding: 20px;
+}
+
+.container {
+  max-width: 800px;
+  margin: auto;
+  border: 1px solid #ddd;
+  background-color: #fff;
+  padding: 20px;
+  box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#textArea {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+#gameContainer {
+  width: 600px;
+  height: 600px;
+  position: relative;
+  border: 2px solid #ccc;
+  background-color: #f9f9f9;
+  overflow: hidden;
+}
+
+#gameArea {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  border-radius: 10px;
+  cursor: pointer;
+  display: none;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+  transition: background-color 0.3s, left 0.3s, top 0.3s;
+}
+
+/* Distractor shapes */
+.distractor {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  pointer-events: none; /* They won’t capture clicks */
+  transition: left 0.3s, top 0.3s;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  margin-top: 10px;
+}
